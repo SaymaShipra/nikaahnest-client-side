@@ -248,17 +248,12 @@ const SuccessCounter = () => {
           <p className="text-gray-300 mb-6">
             Join thousands of happy couples who found their perfect match
           </p>
-          <motion.div
-            whileHover={{ scale: 1.08 }}
-            transition={{ type: "spring" }}
+          <Button
+            type="primary"
+            className="!px-8 !py-6 !bg-gradient-to-r !from-rose-500 !to-pink-600 !text-white !font-semibold !rounded-full hover:from-rose-600 hover:to-pink-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
           >
-            <Button
-              type="primary"
-              className="bg-gradient-to-r from-rose-500 to-pink-600 text-white font-semibold rounded-full px-8 py-4 hover:from-rose-600 hover:to-pink-700"
-            >
-              Start Your Journey
-            </Button>
-          </motion.div>
+            Start Your Journey
+          </Button>
         </motion.div>
       </div>
     </section>

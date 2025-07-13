@@ -2,6 +2,7 @@ import React from "react";
 import Hero from "./Hero";
 import Works from "./Works";
 import SuccessCounter from "./SuccessCounter";
+import SuccessStories from "./SuccessStories";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Hero />
       <Works />
       <SuccessCounter />
+      <SuccessStories />
     </div>
   );
 };
