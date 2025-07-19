@@ -1,28 +1,41 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <div>
       <nav className="sticky top-0 z-50 bg-base-100 shadow-md border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
           <img src="/src/assets/logo.png" className="w-48" alt="Logo" />
 
-          {/* Register/Login buttons */}
+          {/* Right buttons */}
           <div className="flex md:order-2 items-center gap-3">
-            <NavLink to="/register">
-              <button className="bg-rose-400 hover:bg-rose-600 focus:ring-2 focus:outline-none focus:ring-pink-600 font-medium rounded-lg text-lg px-4 py-2 !text-white">
-                Register
-              </button>
-            </NavLink>
-            <NavLink to="/login">
-              <button className="bg-rose-400 hover:bg-rose-600 focus:ring-2 focus:outline-none focus:ring-pink-600 font-medium rounded-lg text-lg px-6 py-2 !text-white">
-                Login
-              </button>
-            </NavLink>
+            {user ? (
+              <NavLink to="/dashboard">
+                <button className="bg-rose-400 hover:bg-rose-600 focus:ring-2 focus:outline-none focus:ring-pink-600 font-medium rounded-lg text-lg px-6 py-2 !text-white">
+                  Dashboard
+                </button>
+              </NavLink>
+            ) : (
+              <>
+                <NavLink to="/register">
+                  <button className="bg-rose-400 hover:bg-rose-600 focus:ring-2 focus:outline-none focus:ring-pink-600 font-medium rounded-lg text-lg px-4 py-2 !text-white">
+                    Register
+                  </button>
+                </NavLink>
+                <NavLink to="/login">
+                  <button className="bg-rose-400 hover:bg-rose-600 focus:ring-2 focus:outline-none focus:ring-pink-600 font-medium rounded-lg text-lg px-6 py-2 !text-white">
+                    Login
+                  </button>
+                </NavLink>
+              </>
+            )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile toggle button */}
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
@@ -47,7 +60,7 @@ const Navbar = () => {
             </svg>
           </button>
 
-          {/* Main menu links */}
+          {/* Main menu */}
           <div
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
             id="navbar-cta"

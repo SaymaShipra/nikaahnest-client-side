@@ -82,7 +82,7 @@ const Login = () => {
 
   return (
     <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ mt: 8, p: 4 }}>
+      <Paper elevation={3} sx={{ mt: 8, p: 4, mb: 8 }}>
         <Typography variant="h4" align="center" gutterBottom>
           Login
         </Typography>
