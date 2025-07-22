@@ -168,7 +168,7 @@ const ProfileDetails = () => {
         Back to Biodatas
       </Button>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center pt-8">
         <h1 className="text-3xl font-bold">Biodata Details</h1>
         <div className="flex items-center gap-4 mb-6">
           <Button
@@ -181,12 +181,11 @@ const ProfileDetails = () => {
           </Button>
 
           {!isPremium && (
-            <NavLink to="/checkout/:id">
-              {" "}
+            <NavLink to={`/checkout/${biodata._id}`}>
               <Button
                 type="primary"
                 onClick={handleRequestContact}
-                className="!bg-gradient-to-r !from-rose-500 !to-pink-600 !text-white !font-semibold !rounded-lg hover:!from-rose-600 hover:!to-pink-700  shadow-lg flex items-center space-x-2 !text-lg "
+                className="!bg-gradient-to-r !from-rose-500 !to-pink-600 !text-white !font-semibold !rounded-lg hover:!from-rose-600 hover:!to-pink-700 shadow-lg flex items-center space-x-2 !text-lg"
                 icon={<Phone size={16} />}
               >
                 Request Contact Info
@@ -196,9 +195,7 @@ const ProfileDetails = () => {
         </div>
       </div>
 
-      <div className="mb-6 mt-5 flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Biodata Details</h1>
-      </div>
+      <div className="mb-6 mt-5 flex justify-between items-center"></div>
       {/* Main Content */}
       <div className="flex flex-col lg:flex-row gap-8">
         <Card
