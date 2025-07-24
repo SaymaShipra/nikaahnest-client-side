@@ -70,10 +70,10 @@ const Dashboard = () => {
     { name: "View Biodata", path: "view-biodata", icon: Eye },
     {
       name: "My Contact Request",
-      path: "contact-requests",
+      path: "contact-request",
       icon: MessageSquare,
     },
-    { name: "Favourites Biodata", path: "favourites", icon: Heart },
+    { name: "Favourites Biodata", path: "favourites-biodata", icon: Heart },
     { name: "Got Married", path: "got-married", icon: Users },
   ];
 
@@ -134,8 +134,8 @@ const Dashboard = () => {
                 className={({ isActive }) =>
                   `flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                     isActive
-                      ? "bg-rose-100 text-rose-700"
-                      : "text-gray-700 hover:bg-gray-100"
+                      ? "!bg-rose-100 !text-rose-700"
+                      : "!text-gray-700 hover:!bg-gray-100"
                   }`
                 }
               >
@@ -162,7 +162,7 @@ const Dashboard = () => {
               element={<ContactRequest userEmail={user.email} />}
             />
             <Route
-              path="favourites"
+              path="favourites-biodata"
               element={<FavouritesBiodata userEmail={user.email} />}
             />
             <Route
@@ -213,7 +213,7 @@ const DashboardHome = ({ stats }) => {
                 <p className="text-sm text-gray-600">Update profile info</p>
               </div>
             </NavLink>
-            <NavLink to="/dashboard/favourites">
+            <NavLink to="/dashboard/favourites-biodata">
               <div className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
                 <Heart className="h-6 w-6 text-rose-600 mb-2" />
                 <h4 className="font-medium text-gray-900">View Favourites</h4>

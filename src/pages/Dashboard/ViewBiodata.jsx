@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
 import { toast } from "sonner";
 import { AuthContext } from "../../context/AuthContext";
+import { Crown, Eye } from "lucide-react";
 
 const ViewBiodata = () => {
   const initialBiodata = useLoaderData(); // initial data from loader
@@ -18,7 +19,6 @@ const ViewBiodata = () => {
     });
   };
 
-  // Optional: If you want to fetch updated biodata for user on mount or user change
   useEffect(() => {
     if (user?.email) {
       fetch(`http://localhost:3000/viewBiodata?userEmail=${user.email}`)
@@ -32,7 +32,6 @@ const ViewBiodata = () => {
   }, [user]);
 
   const handleMakePremium = () => {
-    // Call your API to submit premium request
     fetch(`http://localhost:3000/requestPremium`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -45,7 +44,7 @@ const ViewBiodata = () => {
       .then(() => {
         toast.success("Premium request submitted! Waiting for admin approval.");
         setShowPremiumModal(false);
-        // Update premiumStatus locally to show feedback immediately
+
         setBiodata((prev) => ({
           ...prev,
           premiumStatus: "Pending",
@@ -62,25 +61,17 @@ const ViewBiodata = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
       {/* Card */}
-      <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden ">
         {/* Card Header */}
         <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-          <h2 className="flex items-center text-xl font-semibold text-gray-900">
-            <svg
-              className="w-5 h-5 mr-2 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M15 10l4.553 4.553a2 2 0 01-2.828 2.828L10 15m0 0l4.553-4.553a2 2 0 012.828 2.828L15 10m-5 0v10" />
-            </svg>
+          <h2 className="flex gap-3 items-center text-xl font-semibold text-gray-900">
+            <Eye />
             View Biodata
           </h2>
 
           <div className="flex items-center space-x-3">
             <span
-              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+              className={`inline-flex items-center  px-2.5 py-0.5 rounded-full text-xs font-medium
               ${
                 biodata.isPremium
                   ? "bg-yellow-100 text-yellow-800"
@@ -113,68 +104,65 @@ const ViewBiodata = () => {
           {/* Profile Image */}
           <div className="lg:col-span-1">
             <img
-              src={biodata.profileImage || "/api/placeholder/300/400"}
+              src={biodata.profileImageLink || "/api/placeholder/300/400"}
               alt={biodata.name || "Profile"}
-              className="w-full h-auto rounded-lg shadow"
+              className="w-full h-auto mb-4 rounded-lg shadow"
             />
-            {!biodata.isPremium && biodata.premiumStatus === "Not Applied" && (
-              <>
-                <button
-                  onClick={() => setShowPremiumModal(true)}
-                  className="mt-4 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded flex items-center justify-center"
-                >
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
+            {/* <-- FIXED condition here --> */}
+            {!biodata.isPremium &&
+              (!biodata.premiumStatus ||
+                biodata.premiumStatus === "Not Applied") && (
+                <>
+                  <button
+                    onClick={() => setShowPremiumModal(true)}
+                    className="mt-4 w-full bg-gradient-to-r !from-amber-600 !to-yellow-700 hover:!from-amber-700 hover:!to-yellow-800 !text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-3"
                   >
-                    <path d="M12 2L15 8l6 .5-4.5 4 1.5 6-5-3-5 3 1.5-6L3 8.5 9 8l3-6z" />
-                  </svg>
-                  Make Biodata Premium
-                </button>
+                    <Crown />
+                    Make Biodata Premium
+                  </button>
 
-                {showPremiumModal && (
-                  <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg max-w-md w-full p-6 space-y-4 shadow-lg">
-                      <h3 className="text-lg font-semibold">
-                        Make Your Biodata Premium
-                      </h3>
-                      <p>
-                        Are you sure you want to make your biodata premium? This
-                        will send your biodata to admin for approval.
-                      </p>
-
-                      <div className="bg-yellow-50 p-4 rounded text-yellow-700 text-sm space-y-1">
+                  {showPremiumModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+                      <div className="bg-white rounded-lg max-w-md w-full p-6 space-y-4 shadow-lg">
+                        <h3 className="text-lg font-semibold">
+                          Make Your Biodata Premium
+                        </h3>
                         <p>
-                          <strong>Premium Benefits:</strong>
+                          Are you sure you want to make your biodata premium?
+                          This will send your biodata to admin for approval.
                         </p>
-                        <ul className="list-disc list-inside">
-                          <li>Higher visibility in search results</li>
-                          <li>Featured profile badge</li>
-                          <li>Priority customer support</li>
-                          <li>Access to premium features</li>
-                        </ul>
-                      </div>
 
-                      <div className="flex space-x-3">
-                        <button
-                          onClick={handleMakePremium}
-                          className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded flex items-center justify-center"
-                        >
-                          Yes, Make Premium
-                        </button>
-                        <button
-                          onClick={() => setShowPremiumModal(false)}
-                          className="flex-1 border border-gray-300 rounded py-2 font-semibold"
-                        >
-                          Cancel
-                        </button>
+                        <div className="bg-yellow-50 p-4 rounded text-yellow-700 text-sm space-y-1">
+                          <p>
+                            <strong>Premium Benefits:</strong>
+                          </p>
+                          <ul className="list-disc list-inside">
+                            <li>Higher visibility in search results</li>
+                            <li>Featured profile badge</li>
+                            <li>Priority customer support</li>
+                            <li>Access to premium features</li>
+                          </ul>
+                        </div>
+
+                        <div className="flex space-x-3">
+                          <button
+                            onClick={handleMakePremium}
+                            className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded flex items-center justify-center"
+                          >
+                            Yes, Make Premium
+                          </button>
+                          <button
+                            onClick={() => setShowPremiumModal(false)}
+                            className="flex-1 border border-gray-300 rounded py-2 font-semibold"
+                          >
+                            Cancel
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </>
-            )}
+                  )}
+                </>
+              )}
 
             {biodata.premiumStatus === "Pending" && (
               <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-center text-sm">
