@@ -8,7 +8,7 @@ NikaahNest is a full-stack matchmaking web application where users can create an
 
 ## 👨‍💼 Admin Credentials
 
-- **Email:** admin@nikaahnest.com
+- **Email:** admin@gmail.com
 - **Password:** Admin123
 
 ---

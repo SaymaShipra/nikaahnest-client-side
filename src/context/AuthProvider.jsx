@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       unSubscribe();
     };
-  }, []); // Run once on mount
+  }, []);
 
   const authInfo = {
     loading,
