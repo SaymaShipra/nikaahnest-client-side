@@ -20,7 +20,9 @@ const Checkout = () => {
   useEffect(() => {
     async function fetchBiodata() {
       try {
-        const res = await fetch(`http://localhost:3000/biodatas/${biodataId}`);
+        const res = await fetch(
+          `https://nikaahnest-server-side.vercel.app/biodatas/${biodataId}`
+        );
         if (!res.ok) throw new Error("Failed to fetch biodata");
         const data = await res.json();
         setBiodata(data);
@@ -50,18 +52,21 @@ const Checkout = () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      await fetch("http://localhost:3000/contact-requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userEmail: currentUserEmail,
-          receiverId: biodataId,
-          biodataName: biodata?.name,
-          paymentId: `pay_${Math.random().toString(36).substr(2, 9)}`,
-        }),
-      });
+      await fetch(
+        "https://nikaahnest-server-side.vercel.app/contact-requests",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userEmail: currentUserEmail,
+            receiverId: biodataId,
+            biodataName: biodata?.name,
+            paymentId: `pay_${Math.random().toString(36).substr(2, 9)}`,
+          }),
+        }
+      );
 
       message.success("Payment successful! Your request has been submitted.");
       setTimeout(() => navigate("/dashboard/contact-request"), 1500);

@@ -39,7 +39,7 @@ const SuccessStories = () => {
 
         // Step 1: fetch success stories (contains biodata IDs)
         const resStories = await axios.get(
-          "http://localhost:3000/success-stories"
+          "https://nikaahnest-server-side.vercel.app/success-stories"
         );
         const successStories = resStories.data;
 
@@ -49,10 +49,10 @@ const SuccessStories = () => {
             try {
               const [selfRes, partnerRes] = await Promise.all([
                 axios.get(
-                  `http://localhost:3000/biodatas/${story.selfBiodataId}`
+                  `https://nikaahnest-server-side.vercel.app/biodatas/${story.selfBiodataId}`
                 ),
                 axios.get(
-                  `http://localhost:3000/biodatas/${story.partnerBiodataId}`
+                  `https://nikaahnest-server-side.vercel.app/biodatas/${story.partnerBiodataId}`
                 ),
               ]);
 

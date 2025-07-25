@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -13,59 +12,54 @@ import {
   TableCell,
   TableContainer,
   Paper,
-  Button,
-  Badge as MuiBadge,
+  IconButton,
+  CircularProgress,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  IconButton,
-  CircularProgress,
+  Button,
+  Badge as MuiBadge,
 } from "@mui/material";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { Message as MessageIcon, Delete } from "@mui/icons-material";
 
-// Utility to format date safely
+// Format date helper
 const formatDate = (dateStr) => {
   const date = new Date(dateStr);
-  if (isNaN(date)) return "-";
-  return date.toLocaleDateString();
+  return isNaN(date) ? "-" : date.toLocaleDateString();
+};
+
+const fetchContactRequests = async () => {
+  const res = await axios.get(
+    "https://nikaahnest-server-side.vercel.app/contact-requests"
+  );
+  return res.data;
 };
 
 const ContactRequest = () => {
-  const [contactRequests, setContactRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
   const [selectedRequest, setSelectedRequest] = useState(null);
 
-  const fetchContactRequests = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get("http://localhost:3000/contact-requests"); // Your API endpoint
-      console.log("Fetched contact requests:", res.data);
-
-      if (Array.isArray(res.data)) {
-        setContactRequests(res.data);
-      } else {
-        setContactRequests([]);
-        console.warn("Unexpected response:", res.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch contact requests", error);
-      setContactRequests([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchContactRequests();
-  }, []);
+  const {
+    data: contactRequests = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["contact-requests"],
+    queryFn: fetchContactRequests,
+  });
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this request?"))
-      return;
+    const confirm = window.confirm("Are you sure you want to delete this?");
+    if (!confirm) return;
+
     try {
-      await axios.delete(`http://localhost:3000/contact-requests/${id}`);
-      setContactRequests((prev) => prev.filter((r) => r._id !== id));
+      await axios.delete(
+        `https://nikaahnest-server-side.vercel.app/contact-requests/${id}`
+      );
+      queryClient.invalidateQueries({ queryKey: ["contact-requests"] });
     } catch (error) {
       console.error("Failed to delete request", error);
     }
@@ -79,10 +73,12 @@ const ContactRequest = () => {
           title={<Typography variant="h6">My Contact Requests</Typography>}
         />
         <CardContent>
-          {loading ? (
+          {isLoading ? (
             <Box display="flex" justifyContent="center" py={8}>
               <CircularProgress />
             </Box>
+          ) : isError ? (
+            <Typography color="error">Failed to load data</Typography>
           ) : contactRequests.length === 0 ? (
             <Box textAlign="center" py={8}>
               <MessageIcon color="disabled" sx={{ fontSize: 48, mb: 2 }} />
@@ -95,7 +91,7 @@ const ContactRequest = () => {
             </Box>
           ) : (
             <TableContainer component={Paper}>
-              <Table size="small" aria-label="contact requests table">
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <TableCell>Name</TableCell>
@@ -120,19 +116,17 @@ const ContactRequest = () => {
                       </TableCell>
                       <TableCell>
                         <MuiBadge
-                          badgeContent={"Pending"} // no status field in your data
-                          color={"warning"}
+                          badgeContent={"Pending"}
+                          color="warning"
                           sx={{ px: 1, borderRadius: 1, fontWeight: "bold" }}
                         />
                       </TableCell>
                       <TableCell>{formatDate(request.createdAt)}</TableCell>
                       <TableCell>-</TableCell>
-
                       <TableCell>{request.userEmail || "-"}</TableCell>
                       <TableCell>
                         <IconButton
                           color="error"
-                          aria-label="delete request"
                           onClick={() => handleDelete(request._id)}
                           size="small"
                         >
@@ -188,7 +182,7 @@ const ContactRequest = () => {
               <Typography variant="subtitle2" color="textSecondary">
                 Approved
               </Typography>
-              <Typography variant="h5">0</Typography> {/* No approval info */}
+              <Typography variant="h5">0</Typography>
             </Box>
           </CardContent>
         </Card>
@@ -225,7 +219,7 @@ const ContactRequest = () => {
         </Card>
       </Box>
 
-      {/* Contact Info Dialog */}
+      {/* Dialog */}
       <Dialog
         open={!!selectedRequest}
         onClose={() => setSelectedRequest(null)}
@@ -236,49 +230,31 @@ const ContactRequest = () => {
         <DialogContent dividers>
           {selectedRequest && (
             <>
-              <Typography
-                variant="subtitle2"
-                color="textSecondary"
-                gutterBottom
-              >
+              <Typography variant="subtitle2" gutterBottom>
                 Name
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography gutterBottom>
                 {selectedRequest.biodataName || "-"}
               </Typography>
 
-              <Typography
-                variant="subtitle2"
-                color="textSecondary"
-                gutterBottom
-              >
+              <Typography variant="subtitle2" gutterBottom>
                 Biodata ID
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography gutterBottom>
                 #{selectedRequest.receiverId || "-"}
               </Typography>
 
-              <Typography
-                variant="subtitle2"
-                color="textSecondary"
-                gutterBottom
-              >
-                Email Address
+              <Typography variant="subtitle2" gutterBottom>
+                Email
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography gutterBottom>
                 {selectedRequest.userEmail || "-"}
               </Typography>
 
-              <Typography
-                variant="subtitle2"
-                color="textSecondary"
-                gutterBottom
-              >
+              <Typography variant="subtitle2" gutterBottom>
                 Request Date
               </Typography>
-              <Typography variant="body1">
-                {formatDate(selectedRequest.createdAt)}
-              </Typography>
+              <Typography>{formatDate(selectedRequest.createdAt)}</Typography>
             </>
           )}
         </DialogContent>

@@ -1,17 +1,40 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import BiodataCard from "./BiodataCard";
 import { FaSearch, FaVenusMars, FaCalendarAlt, FaTimes } from "react-icons/fa";
 import { Pagination } from "@mui/material";
 
+const fetchBiodatas = async () => {
+  const res = await axios.get(
+    "https://nikaahnest-server-side.vercel.app/biodatas"
+  ); // Change URL
+  return res.data;
+};
+
 const BioDatas = () => {
-  const profilesData = useLoaderData();
   const [search, setSearch] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 6;
+
+  const {
+    data: profilesData = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["biodatas"],
+    queryFn: fetchBiodatas,
+  });
+
+  if (isLoading)
+    return <p className="text-center mt-10">Loading profiles...</p>;
+  if (isError)
+    return (
+      <p className="text-center mt-10 text-red-500">Error fetching data</p>
+    );
 
   const clearFilters = () => {
     setSearch("");
@@ -113,7 +136,7 @@ const BioDatas = () => {
         ))}
       </div>
 
-      {/* Material UI Pagination */}
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-8">
           <Pagination

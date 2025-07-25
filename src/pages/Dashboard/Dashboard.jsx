@@ -34,7 +34,7 @@ const Dashboard = () => {
     if (user?.email) {
       axios
         .get(
-          `http://localhost:3000/api/dashboard-stats?userEmail=${user.email}`
+          `https://nikaahnest-server-side.vercel.app/api/dashboard-stats?userEmail=${user.email}`
         )
         .then((res) => {
           if (res.data && Array.isArray(res.data)) {

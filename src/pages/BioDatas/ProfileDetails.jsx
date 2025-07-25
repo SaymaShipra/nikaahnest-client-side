@@ -30,7 +30,9 @@ const ProfileDetails = () => {
     async function fetchBiodata() {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:3000/biodatas/${id}`);
+        const res = await fetch(
+          `https://nikaahnest-server-side.vercel.app/biodatas/${id}`
+        );
         if (!res.ok) throw new Error("Failed to fetch biodata");
         const data = await res.json();
         setBiodata(data);
@@ -38,7 +40,7 @@ const ProfileDetails = () => {
 
         const type = data.type || "";
         const similarRes = await fetch(
-          `http://localhost:3000/biodatas?type=${type}&excludeId=${id}&limit=3`
+          `https://nikaahnest-server-side.vercel.app/biodatas?type=${type}&excludeId=${id}&limit=3`
         );
         if (!similarRes.ok) throw new Error("Failed to fetch similar profiles");
         const similarData = await similarRes.json();
@@ -63,7 +65,7 @@ const ProfileDetails = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:3000/favourites?userEmail=${encodeURIComponent(
+          `https://nikaahnest-server-side.vercel.app/favourites?userEmail=${encodeURIComponent(
             user.email
           )}`
         );
@@ -88,16 +90,19 @@ const ProfileDetails = () => {
     }
     try {
       if (!isFavorite) {
-        const res = await fetch("http://localhost:3000/favourites", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userEmail: user.email,
-            biodataId: biodata._id,
-          }),
-        });
+        const res = await fetch(
+          "https://nikaahnest-server-side.vercel.app/favourites",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userEmail: user.email,
+              biodataId: biodata._id,
+            }),
+          }
+        );
 
         if (!res.ok) {
           const errData = await res.json();
@@ -107,16 +112,19 @@ const ProfileDetails = () => {
         message.success("Added to Favorites");
         setIsFavorite(true);
       } else {
-        const res = await fetch("http://localhost:3000/favourites", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userEmail: user.email,
-            biodataId: biodata._id,
-          }),
-        });
+        const res = await fetch(
+          "https://nikaahnest-server-side.vercel.app/favourites",
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userEmail: user.email,
+              biodataId: biodata._id,
+            }),
+          }
+        );
 
         if (!res.ok) {
           const errData = await res.json();

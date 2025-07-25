@@ -16,57 +16,94 @@ import ViewBiodata from "../pages/Dashboard/ViewBiodata";
 import ContactRequest from "../pages/Dashboard/ContactRequest";
 import FavouritesBiodata from "../pages/Dashboard/FavouritesBiodata";
 import GotMarried from "../pages/Dashboard/GotMarried";
+import AdminManagement from "../pages/Dashboard/AdminManagemen";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: RootLayouts,
+    element: <RootLayouts />,
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home />,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "login",
+        element: <Login />,
       },
 
+      // Protected Routes
       {
         path: "bioData",
-        loader: () => fetch("http://localhost:3000/biodatas"),
         element: (
           <PrivateRoute>
             <BioDatas />
           </PrivateRoute>
         ),
+        loader: () =>
+          fetch("https://nikaahnest-server-side.vercel.app/biodatas"),
       },
       {
-        path: "about",
-        Component: About,
+        path: "biodatas/:id",
+        element: (
+          <PrivateRoute>
+            <ProfileDetails />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://nikaahnest-server-side.vercel.app/biodatas/${params.id}`
+          ),
+      },
+      {
+        path: "checkout/:biodataId",
+        element: (
+          <PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://nikaahnest-server-side.vercel.app/biodatas/${params.biodataId}`
+          ),
       },
 
-      {
-        path: "contact",
-        Component: Contact,
-      },
-      {
-        path: "register",
-        Component: Register,
-      },
-      {
-        path: "login",
-        Component: Login,
-      },
       {
         path: "dashboard",
-        Component: Dashboard,
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
       },
-
       {
         path: "dashboard/edit-biodata",
-        Component: EditBiodata,
+        element: (
+          <PrivateRoute>
+            <EditBiodata />
+          </PrivateRoute>
+        ),
       },
       {
         path: "dashboard/view-biodata",
-        Component: ViewBiodata,
+        element: (
+          <PrivateRoute>
+            <ViewBiodata />
+          </PrivateRoute>
+        ),
       },
-
       {
         path: "dashboard/contact-request",
         element: (
@@ -91,23 +128,13 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-
       {
-        path: "biodatas/:id",
-        element: <ProfileDetails />,
-        loader: ({ params }) =>
-          fetch(`http://localhost:3000/biodatas/${params.id}`),
-      },
-
-      {
-        path: "/checkout/:biodataId",
+        path: "dashboard/adminManagement",
         element: (
           <PrivateRoute>
-            <Checkout />
+            <AdminManagement />
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(`http://localhost:3000/biodatas/${params.biodataId}`),
       },
     ],
   },

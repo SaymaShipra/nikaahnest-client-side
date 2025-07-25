@@ -21,7 +21,9 @@ const ViewBiodata = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/viewBiodata?userEmail=${user.email}`)
+      fetch(
+        `https://nikaahnest-server-side.vercel.app/viewBiodata?userEmail=${user.email}`
+      )
         .then((res) => res.json())
         .then((data) => setBiodata(data))
         .catch((error) => {
@@ -32,7 +34,7 @@ const ViewBiodata = () => {
   }, [user]);
 
   const handleMakePremium = () => {
-    fetch(`http://localhost:3000/requestPremium`, {
+    fetch(`https://nikaahnest-server-side.vercel.app/requestPremium`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ biodataId: biodata._id }),

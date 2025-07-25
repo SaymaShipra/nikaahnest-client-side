@@ -54,13 +54,12 @@ const Register = () => {
     const { email, password, name, photo, ...restFormData } =
       Object.fromEntries(formData.entries());
 
-    const errorMsg = validatePassword(password);
-    if (errorMsg) {
-      setPasswordError(errorMsg);
+    const validationError = validatePassword(password);
+    if (validationError) {
+      setPasswordError(validationError);
       return;
-    } else {
-      setPasswordError("");
     }
+    setPasswordError("");
 
     createUser(email, password, name, photo)
       .then((result) => {
@@ -68,14 +67,17 @@ const Register = () => {
           email,
           name,
           photo,
+          role: "user", // default role added here
           ...restFormData,
-          creationTime: result.metadata?.creationTime,
-          lastSignInTime: result.metadata?.lastSignInTime,
+          creationTime: result.user?.metadata?.creationTime,
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
         };
 
-        fetch("https://recipe-book-server-eight.vercel.app/users", {
+        fetch("https://nikaahnest-server-side.vercel.app/users", {
           method: "POST",
-          headers: { "content-type": "application/json" },
+          headers: {
+            "content-type": "application/json",
+          },
           body: JSON.stringify(userProfile),
         })
           .then((res) => res.json())
@@ -95,7 +97,7 @@ const Register = () => {
       .catch((error) => {
         Swal.fire({
           icon: "error",
-          title: "Sign Up failed",
+          title: "Registration Failed",
           text: error.message,
         });
       });
@@ -107,12 +109,15 @@ const Register = () => {
         const userProfile = {
           email: result.user?.email,
           creationTime: result.user?.metadata?.creationTime,
+          role: "user", // default role added here
           lastSignInTime: result.user?.metadata?.lastSignInTime,
         };
 
-        fetch("https://recipe-book-server-eight.vercel.app/users", {
+        fetch("https://nikaahnest-server-side.vercel.app/users", {
           method: "POST",
-          headers: { "content-type": "application/json" },
+          headers: {
+            "content-type": "application/json",
+          },
           body: JSON.stringify(userProfile),
         })
           .then((res) => res.json())
@@ -130,7 +135,7 @@ const Register = () => {
       .catch((error) => {
         Swal.fire({
           icon: "error",
-          title: "Google Sign-In failed",
+          title: "Google Sign-In Failed",
           text: error.message,
         });
       });

@@ -149,7 +149,7 @@ const EditBiodata = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/biodatas",
+        "https://nikaahnest-server-side.vercel.app/biodatas",
         newBiodata
       );
       toast.success("Biodata published successfully!");

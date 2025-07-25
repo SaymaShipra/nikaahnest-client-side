@@ -1,43 +1,46 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Heart, Trash2, Eye } from "lucide-react";
-import { AuthContext } from "../../context/AuthContext"; // Adjust path as needed
+import { AuthContext } from "../../context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const fetchFavourites = async (email) => {
+  const { data } = await axios.get(
+    `https://nikaahnest-server-side.vercel.app/favourites?userEmail=${email}`
+  );
+  return data;
+};
+
 const FavouritesBiodata = () => {
   const { user } = useContext(AuthContext);
-  const [favourites, setFavourites] = useState([]);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (!user?.email) return;
-
-    const fetchFavourites = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:3000/favourites?userEmail=${user.email}`
-        );
-        setFavourites(res.data);
-      } catch (error) {
-        toast.error("Failed to fetch favourites");
-        console.error(error);
-      }
-    };
-
-    fetchFavourites();
-  }, [user?.email]);
+  const {
+    data: favourites = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["favourites", user?.email],
+    queryFn: () => fetchFavourites(user.email),
+    enabled: !!user?.email, // only run when user email is available
+  });
 
   const handleDelete = async (biodataId) => {
     if (!user?.email) return;
 
     try {
-      await axios.delete("http://localhost:3000/favourites", {
-        data: { userEmail: user.email, biodataId },
-      });
-      setFavourites((prev) => prev.filter((fav) => fav._id !== biodataId));
+      await axios.delete(
+        "https://nikaahnest-server-side.vercel.app/favourites",
+        {
+          data: { userEmail: user.email, biodataId },
+        }
+      );
       toast.success("Removed from favourites");
+      queryClient.invalidateQueries(["favourites", user.email]); // Refresh favourites
     } catch (error) {
       toast.error("Failed to remove favourite");
       console.error(error);
@@ -57,9 +60,15 @@ const FavouritesBiodata = () => {
     });
   };
 
+  if (isLoading)
+    return <p className="p-6 text-center">Loading favourites...</p>;
+  if (isError)
+    return (
+      <p className="p-6 text-center text-red-500">Failed to load favourites.</p>
+    );
+
   return (
     <div className="p-6 space-y-6">
-      {/* Toast container - you can move this to your root App if you want */}
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="bg-white shadow rounded-lg p-6">
@@ -77,7 +86,7 @@ const FavouritesBiodata = () => {
               You haven't added any biodatas to your favourites.
             </p>
             <button
-              onClick={() => navigate("/biodata")}
+              onClick={() => navigate("/bioData")}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
               Browse Biodatas
@@ -106,7 +115,7 @@ const FavouritesBiodata = () => {
                     <td className="px-4 py-2">
                       <span
                         className={`px-2 py-1 rounded text-xs font-semibold ${
-                          fav.biodataType === "Male"
+                          fav.gender === "Male"
                             ? "bg-blue-100 text-blue-700"
                             : "bg-pink-100 text-pink-700"
                         }`}

@@ -32,7 +32,10 @@ const GotMarried = () => {
     };
 
     try {
-      await axios.post("http://localhost:3000/success-stories", payload);
+      await axios.post(
+        "https://nikaahnest-server-side.vercel.app/success-stories",
+        payload
+      );
       message.success("Success story submitted!");
       form.resetFields();
       setImageUrl(null);

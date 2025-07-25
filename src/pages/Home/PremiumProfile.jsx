@@ -9,7 +9,7 @@ const PremiumProfiles = () => {
   const [showAll, setShowAll] = useState(false); // NEW
 
   useEffect(() => {
-    fetch("http://localhost:3000/biodatas")
+    fetch("https://nikaahnest-server-side.vercel.app/biodatas")
       .then((res) => res.json())
       .then((data) => {
         const premiumOnly = data

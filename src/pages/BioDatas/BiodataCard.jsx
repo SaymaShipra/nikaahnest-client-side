@@ -29,9 +29,12 @@ const BiodataCard = ({ profile }) => {
     if (hasLiked) return; // Prevent multiple likes from same user for now
 
     try {
-      const res = await fetch(`http://localhost:3000/biodatas/like/${_id}`, {
-        method: "PATCH",
-      });
+      const res = await fetch(
+        `https://nikaahnest-server-side.vercel.app/biodatas/like/${_id}`,
+        {
+          method: "PATCH",
+        }
+      );
 
       const data = await res.json();
 
