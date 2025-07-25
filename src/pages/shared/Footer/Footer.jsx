@@ -23,7 +23,11 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-6">
-              <img src="/src/assets/logo.png" className="w-48" alt="" />
+              <img
+                src="https://i.ibb.co/NDy7Vbd/Brown-and-Beige-Luxury-Hotel-Logo-2-removebg-preview.png"
+                className="w-48"
+                alt=""
+              />
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Connecting hearts, building futures. Your trusted partner in

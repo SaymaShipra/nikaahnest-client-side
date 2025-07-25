@@ -9,7 +9,11 @@ const Navbar = () => {
     <div>
       <nav className="sticky top-0 z-50 bg-base-100 shadow-md border-b border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
-          <img src="/src/assets/logo.png" className="w-48" alt="Logo" />
+          <img
+            src="https://i.ibb.co/NDy7Vbd/Brown-and-Beige-Luxury-Hotel-Logo-2-removebg-preview.png"
+            className="w-48"
+            alt="Logo"
+          />
 
           {/* Right buttons */}
           <div className="flex md:order-2 items-center gap-3">

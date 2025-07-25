@@ -20,6 +20,7 @@ import GotMarried from "./GotMarried";
 import EditBiodata from "./EditBiodata";
 import FavouritesBiodata from "./FavouritesBiodata";
 import { AuthContext } from "../../context/AuthContext";
+import ManageUsers from "../Admin/ManageUsers";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -90,7 +91,7 @@ const Dashboard = () => {
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-3 space-x-4">
             <Button
               type="default"
               icon={<Home />}
@@ -169,6 +170,7 @@ const Dashboard = () => {
               path="got-married"
               element={<GotMarried userEmail={user.email} />}
             />
+
             <Route path="" element={<DashboardHome stats={stats} />} />
           </Routes>
         </div>

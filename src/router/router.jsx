@@ -17,6 +17,13 @@ import ContactRequest from "../pages/Dashboard/ContactRequest";
 import FavouritesBiodata from "../pages/Dashboard/FavouritesBiodata";
 import GotMarried from "../pages/Dashboard/GotMarried";
 import AdminManagement from "../pages/Dashboard/AdminManagemen";
+import ApprovedPremium from "../pages/Admin/ApprovedPremium";
+import AdminDashboardHome from "../pages/Admin/AdminDashboardHome";
+import ApprovedContactRequest from "../pages/Admin/ApprovedContactRequest";
+import ManageUsers from "../pages/Admin/ManageUsers";
+import SuccessStories from "../pages/Admin/SuccessStories";
+import AdminDashboard from "../AdminDashboard";
+import MakeAdmin from "../pages/Admin/MakeAdmin";
 
 export const router = createBrowserRouter([
   {
@@ -135,6 +142,44 @@ export const router = createBrowserRouter([
             <AdminManagement />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "admin",
+        element: (
+          <PrivateRoute>
+            <AdminDashboard />
+          </PrivateRoute>
+        ),
+        children: [
+          {
+            index: true,
+            element: <AdminDashboardHome />,
+          },
+          {
+            path: "manage",
+            element: <ManageUsers />,
+          },
+          {
+            path: "approvedPremium",
+            element: <ApprovedPremium />,
+          },
+          {
+            path: "approvedContactRequest",
+            element: <ApprovedContactRequest />,
+          },
+          {
+            path: "success-stories",
+            element: <SuccessStories />,
+          },
+          {
+            path: "admin-management",
+            element: <AdminManagement />,
+          },
+          {
+            path: "make-admin",
+            element: <MakeAdmin />,
+          },
+        ],
       },
     ],
   },
