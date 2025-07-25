@@ -176,8 +176,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <p className="text-gray-400 text-sm mb-4 md:mb-0 text-center md:text-left">
-              © {currentYear} Harmonious Union Hub. All rights reserved. Made
-              with{" "}
+              © {currentYear} NikaahNest. All rights reserved. Made with{" "}
               <span role="img" aria-label="heart">
                 ❤️
               </span>{" "}
