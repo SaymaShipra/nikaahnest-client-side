@@ -83,24 +83,24 @@ const AdminDashboard = () => {
       label: "Approved Contact",
       to: "/admin/approvedContactRequest",
     },
-    {
-      key: "make-admin",
-      icon: <TeamOutlined />,
-      label: "Make Admin",
-      to: "/admin/make-admin",
-    },
+    // {
+    //   key: "make-admin",
+    //   icon: <TeamOutlined />,
+    //   label: "Make Admin",
+    //   to: "/admin/make-admin",
+    // },
     {
       key: "success-stories",
       icon: <HeartOutlined />,
       label: "Success Stories",
       to: "/admin/success-stories",
     },
-    {
-      key: "admin-management",
-      icon: <TeamOutlined />,
-      label: "Admin Management",
-      to: "/admin/admin-management",
-    },
+    // {
+    //   key: "admin-management",
+    //   icon: <TeamOutlined />,
+    //   label: "Admin Management",
+    //   to: "/admin/admin-management",
+    // },
   ];
 
   if (loadingAdmin) {
