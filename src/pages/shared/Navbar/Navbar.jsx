@@ -120,10 +120,10 @@ const Navbar = () => {
       if (user?.email) {
         try {
           const res = await fetch(
-            `https://nikaahnest-server-side.vercel.app/users/${user.email}`
+            `https://nikaahnest-server-side.vercel.app/users/search?email=${user.email}`
           );
           const data = await res.json();
-          console.log("Fetched role data:", data); // ✅ Check in devtools
+          console.log("Fetched role data:", data); // Should show role
           setUserRole(data?.role || "user");
         } catch (error) {
           console.error("Error fetching user role:", error);

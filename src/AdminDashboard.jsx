@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router";
 import {
   DashboardOutlined,
@@ -13,6 +13,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, Typography, Button } from "antd";
 import { toast } from "sonner";
+import { AuthContext } from "./context/AuthContext";
 
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
@@ -20,6 +21,7 @@ const { Title } = Typography;
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
+  const { signOutUser } = useContext(AuthContext);
   const [currentAdmin, setCurrentAdmin] = useState(null);
   const [loadingAdmin, setLoadingAdmin] = useState(true);
 
@@ -45,8 +47,15 @@ const AdminDashboard = () => {
   }, []);
 
   const handleLogout = () => {
-    toast.success("Logged out successfully");
-    navigate("/");
+    signOutUser()
+      .then(() => {
+        toast.success("Logged out successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+        toast.error("Failed to logout");
+      });
   };
 
   const sidebarItems = [
