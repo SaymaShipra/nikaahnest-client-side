@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
-import { AuthContext } from "../../context/AuthContext"; // Adjust path if needed
+import { AuthContext } from "../../context/AuthContext";
 import { ArrowLeft, CreditCard, Shield } from "lucide-react";
 import { Card, Button, Input, Form, Typography, message, Spin } from "antd";
 
@@ -121,7 +121,6 @@ const Checkout = () => {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Biodata Summary */}
         <Card>
           <Card.Meta
             avatar={
@@ -167,7 +166,6 @@ const Checkout = () => {
           />
         </Card>
 
-        {/* Payment Form */}
         <Card title="Payment Information">
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>

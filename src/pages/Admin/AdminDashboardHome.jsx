@@ -101,7 +101,6 @@ const AdminDashboardHome = () => {
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800">Admin Dashboard</h2>
 
-      {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {statCards.map((stat, idx) => (
           <Card key={idx} className="shadow">
@@ -118,7 +117,6 @@ const AdminDashboardHome = () => {
         ))}
       </div>
 
-      {/* Chart & Activities */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Pie Chart */}
         <Card title="Biodata Distribution">
@@ -143,7 +141,6 @@ const AdminDashboardHome = () => {
           </ResponsiveContainer>
         </Card>
 
-        {/* Recent Activities */}
         <Card
           title={
             <span className="flex items-center gap-2">

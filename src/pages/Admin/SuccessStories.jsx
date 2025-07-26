@@ -14,7 +14,6 @@ const SuccessStories = () => {
   const [selectedStory, setSelectedStory] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Your backend API URL (without trailing slash)
   const API_URL = "https://nikaahnest-server-side.vercel.app";
 
   useEffect(() => {

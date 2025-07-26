@@ -8,7 +8,7 @@ import { Pagination } from "@mui/material";
 const fetchBiodatas = async () => {
   const res = await axios.get(
     "https://nikaahnest-server-side.vercel.app/biodatas"
-  ); // Change URL
+  );
   return res.data;
 };
 
@@ -66,7 +66,6 @@ const BioDatas = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-4">
-      {/* Header */}
       <div className="text-center my-8">
         <h1 className="text-3xl font-bold text-rose-600">
           Find Your Perfect Match
@@ -77,7 +76,6 @@ const BioDatas = () => {
         </p>
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
         <div className="relative">
           <FaSearch className="absolute top-3 left-3 text-gray-400" />
@@ -122,7 +120,6 @@ const BioDatas = () => {
         </button>
       </div>
 
-      {/* Showing Count */}
       <p className="text-lg text-gray-500 mb-4 pt-8">
         Showing {startIndex + 1} -{" "}
         {Math.min(startIndex + itemsPerPage, totalItems)} of {totalItems}{" "}
@@ -136,7 +133,6 @@ const BioDatas = () => {
         ))}
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-8">
           <Pagination

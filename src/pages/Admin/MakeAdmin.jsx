@@ -15,7 +15,6 @@ const MakeAdmin = () => {
 
     setLoading(true);
     try {
-      // Call your PATCH API with role=admin query param
       const response = await fetch(
         `https://nikaahnest-server-side.vercel.app/users/${userId}/role?role=admin`,
         {

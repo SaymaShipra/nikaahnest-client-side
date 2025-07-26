@@ -3,7 +3,6 @@ import { Table, Button, Badge, Card } from "antd";
 import { MessageSquare } from "lucide-react";
 import { toast } from "sonner";
 
-// format date helper
 const formatDate = (dateStr) => {
   const date = new Date(dateStr);
   return isNaN(date) ? "-" : date.toLocaleDateString();
@@ -13,7 +12,6 @@ const ApprovedContactRequest = () => {
   const [contactRequests, setContactRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch contact requests from backend
   const fetchContactRequests = async () => {
     setLoading(true);
     try {
@@ -34,7 +32,6 @@ const ApprovedContactRequest = () => {
     fetchContactRequests();
   }, []);
 
-  // Approve a pending contact request by _id
   const handleApprove = async (id) => {
     try {
       const res = await fetch(
@@ -47,13 +44,12 @@ const ApprovedContactRequest = () => {
       );
       if (!res.ok) throw new Error("Failed to approve request");
       toast.success("Contact request approved");
-      fetchContactRequests(); // refresh data after approval
+      fetchContactRequests();
     } catch (error) {
       toast.error("Failed to approve request", error);
     }
   };
 
-  // Define Ant Design table columns
   const columns = [
     {
       title: "Name",

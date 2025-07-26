@@ -32,7 +32,6 @@ const ManageUsers = () => {
     fetchUsers();
   }, []);
 
-  // Promote or demote admin
   const toggleAdmin = async (email, isAdmin) => {
     setLoading(true);
     try {
@@ -49,11 +48,9 @@ const ManageUsers = () => {
     }
   };
 
-  // Promote or demote premium
   const togglePremium = async (userId, isPremium) => {
     setLoading(true);
     try {
-      // Assuming your backend supports this endpoint
       const url = `https://nikaahnest-server-side.vercel.app/users/${userId}/premium`;
       await axios.patch(url, { isPremium: !isPremium });
       message.success(
