@@ -171,7 +171,7 @@ const AdminDashboard = () => {
               <div className="flex items-center space-x-2">
                 <SafetyCertificateOutlined className="text-blue-600 text-2xl" />
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">
+                  <h1 className="!text-2xl !font-bold !text-gray-900">
                     Admin Dashboard
                   </h1>
                   <p className="text-gray-600">

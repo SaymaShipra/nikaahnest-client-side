@@ -1,197 +1,178 @@
-// import React, { useEffect, useState } from "react";
-// import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
-// import {
-//   HomeOutlined,
-//   TeamOutlined,
-//   CrownOutlined,
-//   MessageOutlined,
-//   HeartOutlined,
-//   LogoutOutlined,
-//   SafetyCertificateOutlined,
-//   BarChartOutlined,
-// } from "@ant-design/icons";
-// import { Button, Card, Spin } from "antd";
-// import ManageUsers from "./admin/ManageUsers";
-// import ApprovedPremium from "./admin/ApprovedPremium";
-// import ApprovedContactRequest from "./admin/ApprovedContactRequest";
-// import SuccessStories from "./admin/SuccessStories";
-// import { toast } from "sonner";
+import React, { useEffect, useState } from "react";
+import {
+  UserOutlined,
+  TeamOutlined,
+  CrownOutlined,
+  DollarOutlined,
+  MessageOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
+import { Card } from "antd";
 
-// const AdminDashboardHome = () => {
-//   const navigate = useNavigate();
-
-//   const [currentAdmin, setCurrentAdmin] = useState(null);
-//   const [loadingAdmin, setLoadingAdmin] = useState(true);
-
-//   // Fetch current admin info from backend API
-//   const fetchCurrentAdmin = async () => {
-//     setLoadingAdmin(true);
-//     try {
-//       const res = await fetch("http://localhost:3000/admin/current"); // Adjust backend URL
-//       if (!res.ok) throw new Error("Failed to fetch admin info");
-//       const data = await res.json();
-//       setCurrentAdmin(data);
-//     } catch (err) {
-//       toast.error(err.message || "Failed to load admin info");
-//     } finally {
-//       setLoadingAdmin(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchCurrentAdmin();
-//   }, []);
-
-//   const handleLogout = () => {
-//     toast.success("Logged out successfully");
-//     navigate("/");
-//   };
-
-//   const sidebarItems = [
-//     { name: "Dashboard", path: "/admin/dashboard", icon: BarChartOutlined },
-//     {
-//       name: "Manage Users",
-//       path: "/admin/dashboard/manage",
-//       icon: TeamOutlined,
-//     },
-//     {
-//       name: "Approved Premium",
-//       path: "/admin/dashboard/approvedPremium",
-//       icon: CrownOutlined,
-//     },
-//     {
-//       name: "Approved Contact Request",
-//       path: "/admin/dashboard/approvedContactRequest",
-//       icon: MessageOutlined,
-//     },
-//     {
-//       name: "Success Stories",
-//       path: "/admin/dashboard/success-stories",
-//       icon: HeartOutlined,
-//     },
-//   ];
-
-//   if (loadingAdmin) {
-//     return (
-//       <div className="flex justify-center items-center min-h-screen">
-//         <Spin size="large" tip="Loading admin info..." />
-//       </div>
-//     );
-//   }
-
-//   if (!currentAdmin) {
-//     return (
-//       <div className="flex justify-center items-center min-h-screen text-red-600">
-//         Failed to load admin info.
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 flex flex-col">
-//       {/* Header */}
-//       <header className="bg-white shadow-sm border-b">
-//         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-//           <div className="flex items-center space-x-4">
-//             <Button
-//               type="default"
-//               icon={<HomeOutlined />}
-//               onClick={() => navigate("/")}
-//               className="flex items-center"
-//             >
-//               Home
-//             </Button>
-//             <div className="flex items-center space-x-3">
-//               <SafetyCertificateOutlined className="text-blue-600 text-2xl" />
-//               <div>
-//                 <h1 className="text-2xl font-bold text-gray-900">
-//                   Admin Dashboard
-//                 </h1>
-//                 <p className="text-gray-600">
-//                   Welcome back, {currentAdmin.name}
-//                 </p>
-//               </div>
-//             </div>
-//           </div>
-
-//           <Button
-//             danger
-//             icon={<LogoutOutlined />}
-//             onClick={handleLogout}
-//             className="flex items-center"
-//           >
-//             Logout
-//           </Button>
-//         </div>
-//       </header>
-
-//       {/* Main Content */}
-//       <main className="max-w-7xl mx-auto px-6 py-8 flex-grow grid grid-cols-1 lg:grid-cols-4 gap-8">
-//         {/* Sidebar */}
-//         <aside className="lg:col-span-1">
-//           <Card className="p-6">
-//             <div className="flex items-center space-x-4 mb-6">
-//               <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
-//                 <SafetyCertificateOutlined className="text-white text-2xl" />
-//               </div>
-//               <div>
-//                 <h3 className="font-semibold text-gray-900">
-//                   {currentAdmin.name}
-//                 </h3>
-//                 <p className="text-sm text-gray-600 truncate max-w-xs">
-//                   {currentAdmin.email}
-//                 </p>
-//                 <span className="mt-1 inline-block text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-//                   Admin
-//                 </span>
-//               </div>
-//             </div>
-
-//             <nav className="space-y-2">
-//               {sidebarItems.map(({ name, path }) => (
-//                 <NavLink
-//                   key={name}
-//                   to={path}
-//                   className={({ isActive }) =>
-//                     `flex items-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200
-//                     ${
-//                       isActive
-//                         ? "bg-blue-100 text-blue-700"
-//                         : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-//                     }`
-//                   }
-//                 >
-//                   <Icon className="mr-3 text-lg" />
-//                   {name}
-//                 </NavLink>
-//               ))}
-//             </nav>
-//           </Card>
-//         </aside>
-
-//         {/* Routes Content */}
-//         <section className="lg:col-span-3 bg-white rounded-md shadow p-6 min-h-[600px]">
-//           <Routes>
-//             <Route path="/" element={<div>Dashboard Home Content</div>} />
-//             <Route path="/manage" element={<ManageUsers />} />
-//             <Route path="/approvedPremium" element={<ApprovedPremium />} />
-//             <Route
-//               path="/approvedContactRequest"
-//               element={<ApprovedContactRequest />}
-//             />
-//             <Route path="/success-stories" element={<SuccessStories />} />
-//           </Routes>
-//         </section>
-//       </main>
-//     </div>
-//   );
-// };
-
-// export default AdminDashboardHome;
-import React from "react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 const AdminDashboardHome = () => {
-  return <div></div>;
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const pieChartColors = {
+    male: "#10b981",
+    female: "#ec4899",
+    premium: "#f59e0b",
+  };
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(
+          "https://nikaahnest-server-side.vercel.app/api/dashboard-stats"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setStats(data);
+      } catch (error) {
+        console.error("Error fetching dashboard stats:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  const pieData = stats
+    ? [
+        {
+          name: "Male Biodata",
+          value: stats.maleBiodataCount,
+          fill: pieChartColors.male,
+        },
+        {
+          name: "Female Biodata",
+          value: stats.femaleBiodataCount,
+          fill: pieChartColors.female,
+        },
+        {
+          name: "Premium Biodata",
+          value: stats.premiumBiodataCount,
+          fill: pieChartColors.premium,
+        },
+      ]
+    : [];
+
+  const statCards = [
+    {
+      title: "Total Biodata",
+      value: stats?.totalBiodataCount,
+      icon: <TeamOutlined className="text-blue-600 text-2xl" />,
+    },
+    {
+      title: "Male Biodata",
+      value: stats?.maleBiodataCount,
+      icon: <UserOutlined className="text-green-600 text-2xl" />,
+    },
+    {
+      title: "Female Biodata",
+      value: stats?.femaleBiodataCount,
+      icon: <UserOutlined className="text-pink-600 text-2xl" />,
+    },
+    {
+      title: "Premium Biodata",
+      value: stats?.premiumBiodataCount,
+      icon: <CrownOutlined className="text-yellow-600 text-2xl" />,
+    },
+    {
+      title: "Total Revenue",
+      value: `$${stats?.totalRevenue || 0}`,
+      icon: <DollarOutlined className="text-purple-600 text-2xl" />,
+    },
+    {
+      title: "Contact Requests",
+      value: stats?.contactRequests,
+      icon: <MessageOutlined className="text-indigo-600 text-2xl" />,
+    },
+  ];
+
+  const recentActivities = stats?.recentActivities || [];
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-gray-800">Admin Dashboard</h2>
+
+      {/* Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {statCards.map((stat, idx) => (
+          <Card key={idx} className="shadow">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-sm text-gray-500">{stat.title}</p>
+                <p className="text-2xl font-bold text-gray-800">
+                  {loading ? "..." : stat.value}
+                </p>
+              </div>
+              <div className="p-2 bg-gray-100 rounded-full">{stat.icon}</div>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      {/* Chart & Activities */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Pie Chart */}
+        <Card title="Biodata Distribution">
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={pieData}
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label={({ name, percent }) =>
+                  `${name} ${(percent * 100).toFixed(0)}%`
+                }
+                dataKey="value"
+              >
+                {pieData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </Card>
+
+        {/* Recent Activities */}
+        <Card
+          title={
+            <span className="flex items-center gap-2">
+              <EyeOutlined />
+              Recent Activities
+            </span>
+          }
+        >
+          <div className="space-y-3">
+            {recentActivities.length === 0 && (
+              <p className="text-gray-500 text-sm">No recent activity</p>
+            )}
+            {recentActivities.map((activity, index) => (
+              <div
+                key={index}
+                className="flex justify-between p-3 border rounded hover:bg-gray-50"
+              >
+                <div>
+                  <p className="font-medium text-gray-800">{activity.action}</p>
+                  <p className="text-xs text-gray-500">by {activity.user}</p>
+                </div>
+                <p className="text-xs text-gray-400">{activity.time}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
 };
 
 export default AdminDashboardHome;

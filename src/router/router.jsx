@@ -24,6 +24,7 @@ import ManageUsers from "../pages/Admin/ManageUsers";
 import SuccessStories from "../pages/Admin/SuccessStories";
 import AdminDashboard from "../AdminDashboard";
 import MakeAdmin from "../pages/Admin/MakeAdmin";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
 
       // Protected Routes
