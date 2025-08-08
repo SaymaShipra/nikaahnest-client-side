@@ -6,6 +6,8 @@ NikaahNest is a full-stack matchmaking web application where users can create an
 
 🔗 https://nikaahnest-hub.web.app/
 
+<img src="https://i.ibb.co.com/4nsMDYJZ/Screenshot-2025-08-08-174145.png">
+
 ## 👨‍💼 Admin Credentials
 
 - **Email:** admin@gmail.com
