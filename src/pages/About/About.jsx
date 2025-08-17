@@ -32,7 +32,7 @@ const About = () => {
           <Card className="rounded-xl shadow hover:shadow-lg transition">
             <div className="text-center">
               <HeartOutlined className="text-rose-500 text-4xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Soulful Matches</h3>
+              <h3 className="text-xl font-semibold mb-2">Soulful Matche</h3>
               <p className="text-gray-600">
                 We prioritize values, compatibility, and deen to help you find
                 your perfect match.
