@@ -26,6 +26,7 @@ import AdminDashboard from "../AdminDashboard";
 import MakeAdmin from "../pages/Admin/MakeAdmin";
 import NotFound from "../pages/NotFound";
 import FeaturesPage from "../pages/FeaturesPage";
+import ProfilePage from "../pages/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -145,6 +146,15 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "dashboard/profile",
+        element: (
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        ),
+      },
+
       {
         path: "dashboard/adminManagement",
         element: (

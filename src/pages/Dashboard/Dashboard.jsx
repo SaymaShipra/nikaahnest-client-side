@@ -21,6 +21,7 @@ import EditBiodata from "./EditBiodata";
 import FavouritesBiodata from "./FavouritesBiodata";
 import { AuthContext } from "../../context/AuthContext";
 import ManageUsers from "../Admin/ManageUsers";
+import ProfilePage from "../ProfilePage";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ const Dashboard = () => {
     },
     { name: "Favourites Biodata", path: "favourites-biodata", icon: Heart },
     { name: "Got Married", path: "got-married", icon: Users },
+    { name: "Profile", path: "profile", icon: Users },
   ];
 
   if (!user) {
@@ -169,6 +171,10 @@ const Dashboard = () => {
             <Route
               path="got-married"
               element={<GotMarried userEmail={user.email} />}
+            />
+            <Route
+              path="profile"
+              element={<ProfilePage userEmail={user.email} />}
             />
 
             <Route path="" element={<DashboardHome stats={stats} />} />
