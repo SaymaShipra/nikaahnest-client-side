@@ -102,6 +102,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
+import ThemeToggle from "../../../ThemeToggle";
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
@@ -168,6 +169,7 @@ const Navbar = () => {
         </ul>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           {user ? (
             userRole === "admin" ? (
               <NavLink to="/admin">
