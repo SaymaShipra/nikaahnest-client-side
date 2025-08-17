@@ -190,7 +190,7 @@ const Navbar = () => {
                 </button>
               </NavLink>
               <NavLink to="/login">
-                <button className="bg-rose-400 hover:bg-rose-600 !text-white text-lg px-6 py-2 rounded-lg">
+                <button className=" btn btn-dash btn-error hover:bg-rose-400 hover:!text-white text-lg px-6 py-2 rounded-lg">
                   Login
                 </button>
               </NavLink>
