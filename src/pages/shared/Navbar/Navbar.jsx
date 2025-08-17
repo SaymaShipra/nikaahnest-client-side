@@ -135,7 +135,7 @@ const Navbar = () => {
     { label: "Biodatas", path: "/bioData" },
     { label: "About Us", path: "/about" },
     { label: "Contact Us", path: "/contact" },
-    { label: "Profile", path: "/profile" },
+    { label: "Features", path: "/features" },
   ];
 
   return (

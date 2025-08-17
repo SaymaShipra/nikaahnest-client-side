@@ -25,6 +25,7 @@ import SuccessStories from "../pages/Admin/SuccessStories";
 import AdminDashboard from "../AdminDashboard";
 import MakeAdmin from "../pages/Admin/MakeAdmin";
 import NotFound from "../pages/NotFound";
+import FeaturesPage from "../pages/FeaturesPage";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "*",
         element: <NotFound />,
+      },
+      {
+        path: "features",
+        element: <FeaturesPage />,
       },
 
       // Protected Routes
