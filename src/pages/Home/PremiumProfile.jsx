@@ -23,7 +23,7 @@ const PremiumProfiles = () => {
   }, [sortOrder, showAll]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-10/12 mx-auto px-4 py-10">
       {/* Section Header */}
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-rose-600">

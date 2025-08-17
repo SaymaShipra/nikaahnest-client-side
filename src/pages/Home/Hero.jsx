@@ -5,7 +5,7 @@ import "flowbite";
 
 const Hero = () => {
   return (
-    <section className="relative bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 py-20 overflow-hidden">
+    <section className="relative w-full bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 py-20 overflow-hidden">
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <Heart className="absolute top-10 left-10 h-20 w-20 text-rose-300 rotate-12" />
         <Heart className="absolute top-32 right-20 h-16 w-16 text-pink-300 -rotate-12" />
