@@ -6,30 +6,32 @@ import "flowbite";
 const Hero = () => {
   return (
     <section className="relative w-full bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 py-20 overflow-hidden">
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <Heart className="absolute top-10 left-10 h-20 w-20 text-rose-300 rotate-12" />
-        <Heart className="absolute top-32 right-20 h-16 w-16 text-pink-300 -rotate-12" />
-        <Heart className="absolute bottom-20 left-32 h-12 w-12 text-purple-300 rotate-45" />
+      {/* Animated Hearts */}
+      <div className="absolute inset-0 pointer-events-none">
+        <Heart className="absolute top-10 left-10 h-20 w-20 text-rose-300 rotate-12 animate-[float_6s_ease-in-out_infinite]" />
+        <Heart className="absolute top-32 right-20 h-16 w-16 text-pink-300 -rotate-12 animate-[float_7s_ease-in-out_infinite]" />
+        <Heart className="absolute bottom-20 left-32 h-12 w-12 text-purple-300 rotate-45 animate-[float_5s_ease-in-out_infinite]" />
       </div>
 
+      {/* Main Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 opacity-0 animate-[fadeIn_1s_ease-in_forwards]">
           Find Your
           <span className="block bg-gradient-to-r from-rose-500 via-pink-600 to-purple-600 bg-clip-text text-transparent">
             Perfect Match
           </span>
         </h1>
 
-        <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+        <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto opacity-0 animate-[fadeIn_1s_ease-in_0.2s_forwards]">
           Where hearts connect and love stories begin. Join thousands of
           verified profiles to find your life partner with complete trust and
           security.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 opacity-0 animate-[fadeIn_1s_ease-in_0.4s_forwards]">
           <Button
             type="primary"
-            className="!px-8 !py-6 !bg-gradient-to-r !from-rose-500 !to-pink-600 !text-white !font-semibold !rounded-full hover:from-rose-600 hover:to-pink-700 transform hover:scale-105 transition-all duration-200 shadow-lg flex items-center space-x-2 !text-lg"
+            className="!px-8 !py-6 !bg-gradient-to-r !from-rose-500 !to-pink-600 !text-white !font-semibold !rounded-full hover:from-rose-600 hover:to-pink-700 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center space-x-2 !text-lg"
             icon={<Search className="h-5 w-5" />}
           >
             Start Your Search
@@ -37,13 +39,14 @@ const Hero = () => {
 
           <Button
             type="default"
-            className="!px-8 !py-6 !border-2 !border-rose-500 !text-rose-600 !font-semibold !rounded-full hover:bg-rose-50 transform hover:scale-105 transition-all duration-200 !text-lg"
+            className="!px-8 !py-6 !border-2 !border-rose-500 !text-rose-600 !font-semibold !rounded-full hover:bg-rose-50 transform hover:scale-105 transition-all duration-300 !text-lg"
           >
             Learn More
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto opacity-0 animate-[fadeIn_1s_ease-in_0.6s_forwards]">
           <div className="text-center p-6 bg-white/60 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
             <div className="flex justify-center mb-4">
               <Users className="h-12 w-12 text-rose-500" />
@@ -69,6 +72,29 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Tailwind keyframes (inline) */}
+      <style jsx>{`
+        @keyframes float {
+          0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0.7;
+          }
+          50% {
+            transform: translateY(-20px) rotate(20deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0.7;
+          }
+        }
+        @keyframes fadeIn {
+          to {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </section>
   );
 };

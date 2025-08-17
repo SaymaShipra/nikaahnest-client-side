@@ -177,7 +177,7 @@ const Navbar = () => {
               </NavLink>
             ) : (
               <NavLink to="/dashboard">
-                <button className="bg-rose-400 hover:bg-rose-600 text-white text-lg px-6 py-2 rounded-lg">
+                <button className="bg-rose-400 hover:bg-rose-600 !text-white text-lg px-6 py-2 rounded-lg">
                   Dashboard
                 </button>
               </NavLink>
@@ -185,12 +185,12 @@ const Navbar = () => {
           ) : (
             <>
               <NavLink to="/register">
-                <button className="bg-rose-400 hover:bg-rose-600 text-white text-lg px-4 py-2 rounded-lg">
+                <button className="bg-rose-400 hover:bg-rose-600 !text-white text-lg px-4 py-2 rounded-lg">
                   Register
                 </button>
               </NavLink>
               <NavLink to="/login">
-                <button className="bg-rose-400 hover:bg-rose-600 text-white text-lg px-6 py-2 rounded-lg">
+                <button className="bg-rose-400 hover:bg-rose-600 !text-white text-lg px-6 py-2 rounded-lg">
                   Login
                 </button>
               </NavLink>
